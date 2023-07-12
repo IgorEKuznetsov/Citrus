@@ -1,4 +1,4 @@
-package citrus;
+package citrus.test;
 
 import com.consol.citrus.TestActionRunner;
 import com.consol.citrus.annotations.CitrusResource;

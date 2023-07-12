@@ -81,6 +81,12 @@
       <version>5.7.2</version>
       <type>pom</type>
     </dependency>
+    <dependency>
+      <groupId>jakarta.xml.ws</groupId>
+      <artifactId>jakarta.xml.ws-api</artifactId>
+      <version>2.3.2</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -123,6 +129,39 @@
             <goals>
               <goal>integration-test</goal>
               <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <version>4.7.2.1</version>
+        <configuration>
+          <excludeFilterFile>${project.build.sourceDirectory}/../resources/spotbugs-security-exclude.xml</excludeFilterFile>
+          <plugins>
+            <plugin>
+              <groupId>com.h3xstream.findsecbugs</groupId>
+              <artifactId>findsecbugs-plugin</artifactId>
+              <version>1.12.0</version>
+            </plugin>
+          </plugins>
+        </configuration>
+        <dependencies>
+          <!-- overwrite dependency on spotbugs if you want to specify the version of spotbugs -->
+          <dependency>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs</artifactId>
+            <version>4.7.3</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <id>analyze-compile</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>check</goal>
             </goals>
           </execution>
         </executions>
